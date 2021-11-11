@@ -1,10 +1,11 @@
 import './App.css';
 import './index.css'
+import Login from './pages/Login';
 
 function App() {
   return (
-    <div className="text-center text-red-500 font-extralight text-3xl">
-      hi bro
+    <div>
+      <Login />
     </div>
   );
 }
