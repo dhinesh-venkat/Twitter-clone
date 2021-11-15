@@ -15,7 +15,7 @@ function App() {
   }
 
   return (
-    <div className="flex min-h-screen relative">
+    <div className="flex flex-col min-h-screen">
       {/* <nav
         style={{
           borderBottom: "solid 1px",

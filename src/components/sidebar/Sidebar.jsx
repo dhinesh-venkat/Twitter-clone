@@ -14,7 +14,7 @@ const Sidebar = ({ isActive, toggle }) => {
     }
 
     return (
-            <div className={ `bg-black-medium w-64 absolute inset-y-0 left-0 transform transition duration-200 ease-in-out ${isActive ? "" : "-translate-x-full"}` }>
+            <div className={ `bg-black-medium z-40 w-64 absolute inset-y-0 left-0 transform transition duration-200 ease-in-out ${isActive ? "" : "-translate-x-full"}` }>
                 <div className="text-gray-50 font-bold text-3xl pt-3 px-6">
                     <a href="/">
                         Twitter

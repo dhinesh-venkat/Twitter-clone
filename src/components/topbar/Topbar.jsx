@@ -2,7 +2,7 @@ import React from 'react'
 
 const Topbar = ({ onClick }) => {
     return (
-        <div className="bg-black-medium text-gray-100 flex justify-start h-12 w-full fixed overflow-hidden items-center">
+        <div className="bg-black-medium z-30 text-gray-100 flex justify-start h-12 w-full fixed overflow-hidden items-center">
             
             <button onClick={ onClick } className="p-4">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
