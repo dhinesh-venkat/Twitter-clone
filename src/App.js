@@ -1,11 +1,34 @@
+// import { Link, Outlet } from 'react-router-dom';
+import { useState } from 'react';
+import { Outlet } from 'react-router';
 import './App.css';
+import Sidebar from './components/sidebar/Sidebar';
+import Topbar from './components/topbar/Topbar';
 import './index.css'
-import Login from './pages/Login';
+
 
 function App() {
+  const [showSidebar, setshowSidebar] = useState(false)
+
+  const toggleSidebar = () => {
+    setshowSidebar(!showSidebar)
+  }
+
   return (
-    <div>
-      <Login />
+    <div className="flex min-h-screen relative">
+      {/* <nav
+        style={{
+          borderBottom: "solid 1px",
+          paddingBottom: "1rem"
+        }}
+      >
+        <Link to="/tweets">Tweets</Link> |{" "}
+        <Link to="/followers">Followers</Link>
+      </nav>
+      <Outlet /> */}
+      <Topbar onClick={ toggleSidebar }/>
+      <Sidebar isActive={ showSidebar } toggle={ toggleSidebar }/>
+      <Outlet />
     </div>
   );
 }

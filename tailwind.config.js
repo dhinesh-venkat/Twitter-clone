@@ -4,14 +4,14 @@ module.exports = {
   theme: {
     extend: {
       backgroundColor: ['active'],
-    },
-    colors: {
-      'white-primary': '#b2becd',
-      'sky-blue': '#49bafb',
-      black: {
-        light: '#2a2e35',
-        medium: '#12181b',
-        dark: '#020203',
+      colors: {
+        'white-primary': '#b2becd',
+        'sky-blue': '#49bafb',
+        black: {
+          light: '#2a2e35',
+          medium: '#12181b',
+          dark: '#020203',
+        },
       },
     },
   },

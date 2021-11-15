@@ -2,3 +2,17 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+@layer components {
+  .menu-item {
+    @apply block px-2.5 py-3 my-2 hover:bg-black-light hover:text-white rounded transition duration-200;
+  }
+}
