@@ -6,17 +6,27 @@ import App from './App';
 import Tweets from './pages/Tweets';
 import Followers from './pages/Followers';
 import Login from './pages/Login'
+import Replies from './pages/Replies';
 
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<App />} > 
+
+          <Route path="/" element={<App />} >
+
           <Route path="login" element={<Login />} />
+
           <Route path="tweets" element={<Tweets />} />
+          
+          <Route path="tweets/:tweetId" element={<Replies />} />
+
           <Route path="followers" element={<Followers />} />
+
         </Route>
+
       </Routes>
+
     </BrowserRouter>,
   </React.StrictMode>,
   document.getElementById('root')

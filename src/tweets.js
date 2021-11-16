@@ -8,7 +8,7 @@ let tweets = [
       "avatar": "https://avatars.dicebear.com/api/avataaars/elonmusk.svg",
       "displayName": "dhinesh",
       "userId": "317ec542-579e-4984-afed-ed9d21590f4b",
-      "username": "dhinesh"
+      "username": "@dhinesh"
     },
     "tweetId": 4
   },
@@ -21,7 +21,7 @@ let tweets = [
       "avatar": "https://avatars.dicebear.com/api/avataaars/df.svg",
       "displayName": "dhinesh",
       "userId": "317ec542-579e-4984-afed-ed9d21590f4b",
-      "username": "dhinesh"
+      "username": "@dhinesh"
     },
     "tweetId": 3
   }

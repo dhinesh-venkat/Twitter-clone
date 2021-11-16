@@ -1,9 +1,11 @@
 import { Avatar } from '@mui/material'
 import React from 'react'
 import Moment from 'react-moment';
+import { useNavigate } from 'react-router';
 
-const Tweet = ({ json }) => {
+const Tweet = ({ json, hideActions }) => {
 
+    let navigate = useNavigate();
 
 
     return (
@@ -31,9 +33,9 @@ const Tweet = ({ json }) => {
                         { json.content }
                     </div>
 
-                    <div className="flex row space-x-12 mt-2">
+                    {hideActions ? '' :<div className="flex row space-x-12 mt-2">
                         <div className="flex flex-row">
-                            <button className="text-red-700">
+                            <button className="text-red-700" >
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                                     <path fill-rule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clip-rule="evenodd" />
                                 </svg>
@@ -42,13 +44,19 @@ const Tweet = ({ json }) => {
                                 { json.likes }
                             </div>
                         </div>
-                        <div className="text-gray-400">
-                            Reply
+                        <div className="text-gray-400 hover:text-white transition duration-200">
+                            <button onClick={
+                                () => {
+                                    navigate(`${json.tweetId}`, { state: json })
+                                }
+                            }>
+                                Reply
+                            </button>
                         </div>
                         <div className="text-gray-400">
                             Save
                         </div>
-                    </div>
+                    </div>}
 
                 </div>
             </div>
