@@ -8,6 +8,7 @@ import Followers from './pages/Followers';
 import Login from './pages/Login'
 import Replies from './pages/Replies';
 import Saved from './pages/Saved';
+import Profile from './pages/Profile';
 
 ReactDOM.render(
   <React.StrictMode>
@@ -27,6 +28,9 @@ ReactDOM.render(
           <Route path="saved" element={<Saved />} />
 
           <Route path="saved/:tweetId" element={<Replies />} />
+
+          <Route path="profile" element={<Profile />} />
+
 
         </Route>
 
