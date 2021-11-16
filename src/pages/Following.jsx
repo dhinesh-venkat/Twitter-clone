@@ -2,13 +2,13 @@ import React from 'react'
 import UserCard from '../components/user card/UserCard'
 import { getFollowers } from '../followers'
 
-const Followers = () => {
+const Following = () => {
 
     const data = getFollowers()
 
     const followersList = data.map((follower) =>
     <li key={follower.id} className="flex justify-center">
-        <UserCard json={ follower } buttonText='Remove'/>
+        <UserCard json={ follower } buttonText='Unfollow'/>
     </li>
 )
 
@@ -21,4 +21,4 @@ const Followers = () => {
     )
 }
 
-export default Followers
+export default Following
