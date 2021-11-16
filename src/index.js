@@ -7,6 +7,7 @@ import Tweets from './pages/Tweets';
 import Followers from './pages/Followers';
 import Login from './pages/Login'
 import Replies from './pages/Replies';
+import Saved from './pages/Saved';
 
 ReactDOM.render(
   <React.StrictMode>
@@ -22,6 +23,10 @@ ReactDOM.render(
           <Route path="tweets/:tweetId" element={<Replies />} />
 
           <Route path="followers" element={<Followers />} />
+
+          <Route path="saved" element={<Saved />} />
+
+          <Route path="saved/:tweetId" element={<Replies />} />
 
         </Route>
 

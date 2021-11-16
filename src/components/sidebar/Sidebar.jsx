@@ -24,6 +24,7 @@ const Sidebar = ({ isActive, toggle }) => {
                 <nav className="px-3.5 text-white-primary text-xl space-y-2">
                     <NavLink onClick={ toggle } style={({ isActive }) => active(isActive)} className="menu-item" to="/tweets">Tweets</NavLink>
                     <NavLink onClick={ toggle } style={({ isActive }) => active(isActive)} className="menu-item" to="/followers">Followers</NavLink>
+                    <NavLink onClick={ toggle } style={({ isActive }) => active(isActive)} className="menu-item" to="/saved">Saved</NavLink>
                 </nav>
 
             </div>
