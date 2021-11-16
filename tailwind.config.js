@@ -7,6 +7,7 @@ module.exports = {
       colors: {
         'white-primary': '#b2becd',
         'sky-blue': '#49bafb',
+        'modal-background': '#00000080',
         black: {
           light: '#2a2e35',
           medium: '#12181b',

@@ -4,14 +4,20 @@ import { Outlet } from 'react-router';
 import './App.css';
 import Sidebar from './components/sidebar/Sidebar';
 import Topbar from './components/topbar/Topbar';
+import CreateTweet from './components/tweet/CreateTweet';
 import './index.css'
 
 
 function App() {
   const [showSidebar, setshowSidebar] = useState(false)
+  const [showModal, setshowModal] = useState(false)
 
   const toggleSidebar = () => {
     setshowSidebar(!showSidebar)
+  }
+
+  const toggleModal = () => {
+    setshowModal(!showModal)
   }
 
   return (
@@ -27,7 +33,8 @@ function App() {
       </nav>
       <Outlet /> */}
       <Topbar onClick={ toggleSidebar }/>
-      <Sidebar isActive={ showSidebar } toggle={ toggleSidebar }/>
+      <Sidebar isActive={ showSidebar } toggle={ toggleSidebar } toggleModal={ toggleModal }/>
+      { showModal ? <CreateTweet show={true} toggleModal={ toggleModal }/> : ''}
       <Outlet />
     </div>
   );
