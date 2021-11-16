@@ -32,7 +32,7 @@ function App() {
         <Link to="/followers">Followers</Link>
       </nav>
       <Outlet /> */}
-      <Topbar onClick={ toggleSidebar }/>
+      <Topbar onClick={ toggleSidebar } isActive={ showSidebar } />
       <Sidebar isActive={ showSidebar } toggle={ toggleSidebar } toggleModal={ toggleModal }/>
       { showModal ? <CreateTweet show={true} toggleModal={ toggleModal }/> : ''}
       <Outlet />
