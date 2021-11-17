@@ -1,9 +1,11 @@
-import React from 'react'
-import { NavLink } from 'react-router-dom'
+import {React, useState} from 'react'
+import { NavLink, useNavigate } from 'react-router-dom'
 
 
 const Sidebar = ({ isActive, toggle, toggleModal }) => {
-
+    
+    const navigate = useNavigate()
+    const [searchContent, setsearchContent] = useState("")
     const active = (isActive) => {
         const style = {
             backgroundColor: isActive ? "#49bafb" : "",
@@ -13,13 +15,26 @@ const Sidebar = ({ isActive, toggle, toggleModal }) => {
         return style
     }
 
+    const handleKeyDown = (event) => {
+        if (event.key === 'Enter') {
+          console.log(searchContent)
+          toggle()
+          navigate('/search')
+        }
+      }
+
+
     return (
         <div className="h-full fixed">
             <div className={`bg-black-medium w-64 z-40 justify-around flex flex-col absolute inset-y-0 left-0 transform transition-all duration-400 ${isActive ? "" : "-translate-x-full"}`}>
-
-              
-
                 <nav className="px-3.5 text-white-primary text-xl space-y-2 ">
+                    <input 
+                        type="search"
+                        value={ searchContent } 
+                        placeholder="Search"
+                        onChange={ (e) => setsearchContent(e.target.value) }
+                        onKeyDown={ handleKeyDown}
+                        className="bg-black-light text-gray-400 px-2.5 py-3 w-full outline-none" />
                     <NavLink onClick={toggle} style={({ isActive }) => active(isActive)} className="menu-item" to="/tweets">Tweets</NavLink>
                     <NavLink onClick={toggle} style={({ isActive }) => active(isActive)} className="menu-item" to="/followers">Followers</NavLink>
                     <NavLink onClick={toggle} style={({ isActive }) => active(isActive)} className="menu-item" to="/following">Following</NavLink>

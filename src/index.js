@@ -10,6 +10,8 @@ import Replies from './pages/Replies';
 import Saved from './pages/Saved';
 import Profile from './pages/Profile';
 import Following from './pages/Following';
+import Search from './pages/Search';
+import UserProfile from './pages/UserProfile';
 
 ReactDOM.render(
   <React.StrictMode>
@@ -33,6 +35,12 @@ ReactDOM.render(
           <Route path="saved/:tweetId" element={<Replies />} />
 
           <Route path="profile" element={<Profile />} />
+
+          <Route path="profile" element={<Profile />} />
+
+          <Route path="profile/tweets" element={<UserProfile />} />
+
+          <Route path="search" element={<Search />} />
 
 
         </Route>

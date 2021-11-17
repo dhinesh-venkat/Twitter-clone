@@ -13,6 +13,12 @@
   padding: 0;
 }
 
+::selection {
+  --tw-bg-opacity: 1;
+  background: rgba(52, 211, 153, var(--tw-bg-opacity));
+  color: white;
+}
+
 @layer components {
   .menu-item {
     @apply block px-2.5 py-3 my-2 hover:bg-black-light hover:text-white rounded transition duration-200;
