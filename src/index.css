@@ -2,10 +2,12 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import url('http://fonts.cdnfonts.com/css/sofia-pro');
 
 *,
 *::before,
 *::after {
+  font-family: 'Sofia Pro', sans-serif;
   box-sizing: border-box;
   margin: 0;
   padding: 0;
@@ -14,5 +16,9 @@
 @layer components {
   .menu-item {
     @apply block px-2.5 py-3 my-2 hover:bg-black-light hover:text-white rounded transition duration-200;
+  }
+
+  .popup-menu-item {
+    @apply hover:bg-black-light px-5 py-3 text-white-primary hover:text-white cursor-pointer;
   }
 }
