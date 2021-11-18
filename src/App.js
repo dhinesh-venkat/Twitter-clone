@@ -22,19 +22,9 @@ function App() {
 
   return (
     <div className="flex flex-col min-h-screen">
-      {/* <nav
-        style={{
-          borderBottom: "solid 1px",
-          paddingBottom: "1rem"
-        }}
-      >
-        <Link to="/tweets">Tweets</Link> |{" "}
-        <Link to="/followers">Followers</Link>
-      </nav>
-      <Outlet /> */}
-      <Topbar onClick={ toggleSidebar } isActive={ showSidebar } />
-      <Sidebar isActive={ showSidebar } toggle={ toggleSidebar } toggleModal={ toggleModal }/>
-      { showModal ? <CreateTweet show={true} toggleModal={ toggleModal }/> : ''}
+      <Topbar onClick={toggleSidebar} isActive={showSidebar} />
+      <Sidebar isActive={showSidebar} toggle={toggleSidebar} toggleModal={toggleModal} />
+      {showModal ? <CreateTweet show={true} toggleModal={toggleModal} /> : ''}
       <Outlet />
     </div>
   );

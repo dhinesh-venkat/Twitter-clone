@@ -12,18 +12,20 @@ import Profile from './pages/Profile';
 import Following from './pages/Following';
 import Search from './pages/Search';
 import UserProfile from './pages/UserProfile';
+import LandingPage from './pages/LandingPage';
 
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
       <Routes>
+        <Route path="/" element={<LandingPage />} />
 
-          <Route path="/" element={<App />} >
+        <Route path="login" element={<Login />} />
 
-          <Route path="login" element={<Login />} />
+        <Route path="/app" element={<App />} >
 
           <Route path="tweets" element={<Tweets />} />
-          
+
           <Route path="tweets/:tweetId" element={<Replies />} />
 
           <Route path="followers" element={<Followers />} />
@@ -33,8 +35,6 @@ ReactDOM.render(
           <Route path="saved" element={<Saved />} />
 
           <Route path="saved/:tweetId" element={<Replies />} />
-
-          <Route path="profile" element={<Profile />} />
 
           <Route path="profile" element={<Profile />} />
 

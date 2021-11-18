@@ -35,11 +35,11 @@ const Sidebar = ({ isActive, toggle, toggleModal }) => {
                         onChange={ (e) => setsearchContent(e.target.value) }
                         onKeyDown={ handleKeyDown}
                         className="bg-black-light text-gray-400 px-2.5 py-3 w-full outline-none" />
-                    <NavLink onClick={toggle} style={({ isActive }) => active(isActive)} className="menu-item" to="/tweets">Tweets</NavLink>
-                    <NavLink onClick={toggle} style={({ isActive }) => active(isActive)} className="menu-item" to="/followers">Followers</NavLink>
-                    <NavLink onClick={toggle} style={({ isActive }) => active(isActive)} className="menu-item" to="/following">Following</NavLink>
-                    <NavLink onClick={toggle} style={({ isActive }) => active(isActive)} className="menu-item" to="/saved">Saved</NavLink>
-                    <NavLink onClick={toggle} style={({ isActive }) => active(isActive)} className="menu-item" to="/profile">Profile</NavLink>
+                    <NavLink onClick={toggle} style={({ isActive }) => active(isActive)} className="menu-item" to="/app/tweets">Tweets</NavLink>
+                    <NavLink onClick={toggle} style={({ isActive }) => active(isActive)} className="menu-item" to="/app/followers">Followers</NavLink>
+                    <NavLink onClick={toggle} style={({ isActive }) => active(isActive)} className="menu-item" to="/app/following">Following</NavLink>
+                    <NavLink onClick={toggle} style={({ isActive }) => active(isActive)} className="menu-item" to="/app/saved">Saved</NavLink>
+                    <NavLink onClick={toggle} style={({ isActive }) => active(isActive)} className="menu-item" to="/app/profile">Profile</NavLink>
                 </nav>
 
 
