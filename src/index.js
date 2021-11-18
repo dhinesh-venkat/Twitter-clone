@@ -13,6 +13,7 @@ import Following from './pages/Following';
 import Search from './pages/Search';
 import UserProfile from './pages/UserProfile';
 import LandingPage from './pages/LandingPage';
+import {ProtectedRoute} from './authentication/ProtectedRoute'
 
 ReactDOM.render(
   <React.StrictMode>
@@ -22,7 +23,12 @@ ReactDOM.render(
 
         <Route path="login" element={<Login />} />
 
-        <Route path="/app" element={<App />} >
+        <Route path="/app" 
+            element={
+              <ProtectedRoute>
+                <App />
+              </ProtectedRoute>
+            } >
 
           <Route path="tweets" element={<Tweets />} />
 

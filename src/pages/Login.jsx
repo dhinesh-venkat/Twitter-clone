@@ -2,9 +2,14 @@ import React, { useState } from 'react'
 import InputField from '../components/login/InputField'
 import LoginButton from '../components/login/LoginButton'
 import Signup from '../components/login/SignUpButton'
+import auth from '../authentication/auth'
+import { useNavigate } from 'react-router-dom'
+
 
 
 const Login = () => {
+
+    const navigate = useNavigate()
 
     const [username, setusername] = useState("")
     const [displayName, setdisplayName] = useState("")
@@ -15,12 +20,19 @@ const Login = () => {
     const submit = (e) => {
         e.preventDefault()
         signup ? console.log(username,displayName,password) : console.log(username, password)
+        handleLogin()
     }
 
     const changeToSignup = (e) => {
         console.log(signup)
         e.preventDefault()
         setsignup(!signup)
+    }
+
+    const handleLogin = () => {
+        auth.login(() => {
+            navigate('/app/tweets')
+        })
     }
 
     return (
