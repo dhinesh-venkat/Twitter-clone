@@ -4,7 +4,7 @@ import LoginButton from '../components/login/LoginButton'
 import Signup from '../components/login/SignUpButton'
 import auth from '../authentication/auth'
 import { useNavigate } from 'react-router-dom'
-
+import { login } from '../services/loginUser'
 
 
 const Login = () => {
@@ -19,8 +19,7 @@ const Login = () => {
 
     const submit = (e) => {
         e.preventDefault()
-        signup ? console.log(username,displayName,password) : console.log(username, password)
-        handleLogin()
+        signup ? console.log(username,displayName,password) : handleLogin()
     }
 
     const changeToSignup = (e) => {
@@ -30,6 +29,14 @@ const Login = () => {
     }
 
     const handleLogin = () => {
+
+        login(username,password).then((res) => {
+            console.log(res.data)
+        }).catch((err) => {
+            console.log('error occured');
+            console.log(err)
+        })
+
         auth.login(() => {
             navigate('/app/tweets')
         })
