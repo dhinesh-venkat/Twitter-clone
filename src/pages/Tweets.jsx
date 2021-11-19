@@ -25,13 +25,19 @@ const Tweets = () => {
         load()
     }, [])
 
+    const updateItem = (tweetId, content, isPublic) => {
+        settweets(
+            prev => prev.map(item => item.tweetId === tweetId ? {...item, content: content, isPublic: isPublic}: item)
+        )
+    }
+
     const deleteItem = (tweetId) => {
         settweets(prev => prev.filter((item) => item.tweetId !== tweetId))
     }
 
     const tweetsList = tweets.map((tweet) =>
         <li key={tweet.tweetId} className="flex justify-center">
-            <Tweet json={tweet} deleteItem={ deleteItem }/>
+            <Tweet json={tweet} deleteItem={ deleteItem } updateItem={ updateItem }/>
         </li>
     )
 

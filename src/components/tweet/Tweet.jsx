@@ -9,11 +9,12 @@ import Cookies from 'js-cookie';
 import { updateTweet } from '../../services/updateTweet'
 
 
-const Tweet = ({ json, hideActions, deleteItem }) => {
+const Tweet = ({ json, hideActions, deleteItem, updateItem }) => {
 
     const [edit, setedit] = useState(false)
     const [hide, sethide] = useState(false)
     const [content, setcontent] = useState(json.content)
+    const [isPublic, setisPublic] = useState(json.isPublic)
 
     let navigate = useNavigate();
     const token = Cookies.get('token')
@@ -23,8 +24,8 @@ const Tweet = ({ json, hideActions, deleteItem }) => {
 
         deleteTweet(json.tweetId).then((res) => {
             if (res.status === 200) {
-                deleteItem(json.tweetId)
                 alert('Tweet deleted!')
+                deleteItem(json.tweetId)
             }
         }).catch((err) => {
             console.log(err.response.status);
@@ -40,9 +41,10 @@ const Tweet = ({ json, hideActions, deleteItem }) => {
     const handleUpdate = () => {
         setedit(false)
         sethide(false)
-        updateTweet(json.tweetId, content, json.isPublic).then((res) => {
+        updateTweet(json.tweetId, content, isPublic).then((res) => {
+            console.log(json.tweetId, content, isPublic);
             if(res.status === 200) {
-                alert('Success')
+                updateItem(json.tweetId, content, isPublic)
             }
         }).catch((err) => {
             console.log(err.response);
@@ -108,7 +110,7 @@ const Tweet = ({ json, hideActions, deleteItem }) => {
                     </div>}
                     {edit ? <div className="flex flex-row justify-end space-x-6 mt-3 items-center">
                         <div className="space-x-2">
-                            <input type="checkbox" checked={json.isPublic} onChange={(e) => json.isPublic = e.target.checked} />
+                            <input type="checkbox" checked={isPublic} onChange={(e) => setisPublic(e.target.checked)} />
                             <label className="text-gray-400">Public</label>
                         </div><button
                             onClick={handleUpdate}
