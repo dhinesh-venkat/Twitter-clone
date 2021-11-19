@@ -3,11 +3,28 @@ import React from 'react'
 import Moment from 'react-moment';
 import { useNavigate } from 'react-router';
 import PopupMenu from '../popup/PopupMenu';
+import { deleteTweet } from '../../services/deleteTweet'
+import jwt_decode from "jwt-decode";
+import Cookies from 'js-cookie';
 
 
 const Tweet = ({ json, hideActions }) => {
 
     let navigate = useNavigate();
+    const token = Cookies.get('token')
+    const data = jwt_decode(token)
+
+    const handleDelete = () => {
+
+        deleteTweet(json.tweetId).then((res) => {
+            if(res.status === 200) {
+                alert('Tweet deleted!')
+            }
+        }).catch((err) => {
+            console.log(err.response.status);
+        })
+        
+    }
 
     return (
         <div className="flex border border-opacity-50 w-1/3 h-auto mb-2">
@@ -31,7 +48,7 @@ const Tweet = ({ json, hideActions }) => {
                             </div>
                         </div>
 
-                        <PopupMenu />
+                        {json.owner.userId === data.jti ? <PopupMenu onDelete={ handleDelete }/> : ''}
 
                     </div>
 
