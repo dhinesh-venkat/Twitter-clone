@@ -6,7 +6,7 @@ export const signupUser = async (username, displayName, password) => {
 
     const json = {
         avatar: `https://avatars.dicebear.com/api/avataaars/${username}.svg`,
-        username: username,
+        username: `@${username}`,
         displayName: displayName,
         password: password
     }
