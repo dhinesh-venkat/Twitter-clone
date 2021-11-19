@@ -5,6 +5,7 @@ import Signup from '../components/login/SignUpButton'
 import auth from '../authentication/auth'
 import { useNavigate } from 'react-router-dom'
 import { login } from '../services/loginUser'
+import { signupUser } from '../services/signup'
 import Cookies from 'js-cookie'
 
 
@@ -20,7 +21,7 @@ const Login = () => {
 
     const submit = (e) => {
         e.preventDefault()
-        signup ? console.log(username,displayName,password) : handleLogin()
+        signup ? handleSignup() : handleLogin()
     }
 
     const changeToSignup = (e) => {
@@ -38,6 +39,19 @@ const Login = () => {
                 auth.login(() => {
                     navigate('/app/tweets')
                 })
+            }
+            
+        }).catch((err) => {
+            console.log('error occured');
+            console.log(err)
+        })
+    }
+
+    const handleSignup = () => {
+        signupUser(username,displayName,password).then((res) => {
+            if(res.status === 200) {
+                alert('Success')
+                setsignup(false)
             }
             
         }).catch((err) => {
@@ -69,6 +83,7 @@ const Login = () => {
                     <LoginButton submit={submit} value={ signup }/>
                 </div>
             </div>
+
         </div>
     )
 }

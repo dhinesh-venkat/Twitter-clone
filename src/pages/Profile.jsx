@@ -3,6 +3,7 @@ import Cookies from 'js-cookie'
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import auth from '../authentication/auth'
+import { logoutUser } from '../services/logoutUser'
 
 
 const Profile = () => {
@@ -10,9 +11,13 @@ const Profile = () => {
     const navigate = useNavigate()
 
     const handleLogout = () => {
-        Cookies.remove('token')
-        auth.logout(() => {
-            navigate('/')
+        logoutUser().then((res) => {
+            if(res.status === 200) {
+                Cookies.remove('token')
+                auth.logout(() => {
+                    navigate('/')
+                })
+            }
         })
     }
 
