@@ -21,7 +21,7 @@ const Tweets = () => {
                 })
             }
         })
-    }, [tweets, navigate])
+    }, [navigate])
 
     const tweetsList = tweets.map((tweet) =>
         <li key={tweet.tweetId} className="flex justify-center">

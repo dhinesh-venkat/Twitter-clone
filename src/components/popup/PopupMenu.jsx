@@ -11,7 +11,7 @@ const OpenMenu = () => {
     );
 }
 
-const PopupMenu = ({ onDelete }) => {
+const PopupMenu = ({ onDelete, onEdit }) => {
     return (
         <div>
             <Popup
@@ -24,7 +24,7 @@ const PopupMenu = ({ onDelete }) => {
                 arrow={false}
             >
                 <div className="bg-black-medium">
-                    <div className="popup-menu-item"> Edit </div>
+                    <div onClick={ onEdit } className="popup-menu-item"> Edit </div>
                     <div onClick={ onDelete } className="popup-menu-item"> Delete </div>
                 </div>
             </Popup>
