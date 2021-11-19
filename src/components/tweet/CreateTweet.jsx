@@ -1,11 +1,15 @@
 import { Avatar, Divider } from '@mui/material'
 import {React, useState} from 'react'
+import auth from '../../authentication/auth'
+import { postTweet } from '../../services/postTweet'
+import { useNavigate } from 'react-router-dom'
 
 
 const CreateTweet = ({ show, toggleModal }) => {
     const [tweetContent, settweetContent] = useState("")
     const [isPublic, setisPublic] = useState(true)
     const [showModal, setshowModal] = useState(show)
+    const navigate = useNavigate()
 
     function togglePublic() {
         setisPublic(!isPublic)
@@ -14,6 +18,24 @@ const CreateTweet = ({ show, toggleModal }) => {
     function hide(e) {
         setshowModal(false)
         toggleModal()
+    }
+
+    const handleSubmit = (e) => {
+        e.preventDefault()
+        
+        postTweet(tweetContent, isPublic).then((res) => {
+            if(res.status === 200) {
+                toggleModal()
+            }
+            
+        }).catch((err) => {
+            if(err.status === 401) {
+                auth.logout(() => {
+                    
+                    navigate('/login')
+                })
+            }
+        })
     }
 
     return (
@@ -44,7 +66,9 @@ const CreateTweet = ({ show, toggleModal }) => {
                         <input type="checkbox" checked={ isPublic } onChange={ togglePublic }/>
                             <label className="text-gray-400">Public</label>
                         </div>
-                        <button className="text-gray-100 hover:text-white transition duration-200 rounded-full text-sm flex justify-center bg-green-400 hover:bg-green-500 p-2 w-16">Tweet</button>
+                        <button
+                            onClick={ handleSubmit } 
+                            className="text-gray-100 hover:text-white transition duration-200 rounded-full text-sm flex justify-center bg-green-400 hover:bg-green-500 p-2 w-16">Tweet</button>
                     </div>
 
                     

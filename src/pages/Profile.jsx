@@ -1,5 +1,4 @@
 import { Avatar } from '@mui/material'
-import Cookies from 'js-cookie'
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import auth from '../authentication/auth'
@@ -13,7 +12,6 @@ const Profile = () => {
     const handleLogout = () => {
         logoutUser().then((res) => {
             if(res.status === 200) {
-                Cookies.remove('token')
                 auth.logout(() => {
                     navigate('/')
                 })

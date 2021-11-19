@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
+import auth from '../authentication/auth'
 import Tweet from '../components/tweet/Tweet'
 import { getTweets } from '../services/getTweets'
 
 
 const Tweets = () => {
     const [tweets, settweets] = useState([])
+    const navigate = useNavigate()
 
     useEffect(() => {
         getTweets().then((res) => {
@@ -12,9 +15,13 @@ const Tweets = () => {
                 settweets(res.data)
             }
         }).catch((err) => {
-            console.log(err)
+            if (err.response.status === 401) {
+                auth.logout(() => {
+                    navigate('/login')
+                })
+            }
         })
-    }, [tweets])
+    }, [tweets, navigate])
 
     const tweetsList = tweets.map((tweet) =>
         <li key={tweet.tweetId} className="flex justify-center">

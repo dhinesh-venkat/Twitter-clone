@@ -17,6 +17,7 @@ class Auth {
     }
 
     logout(cb) {
+        Cookies.remove('token')
         this.authed = false
         cb()
     }
