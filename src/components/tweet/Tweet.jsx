@@ -9,7 +9,7 @@ import Cookies from 'js-cookie';
 import { updateTweet } from '../../services/updateTweet'
 
 
-const Tweet = ({ json, hideActions }) => {
+const Tweet = ({ json, hideActions, deleteItem }) => {
 
     const [edit, setedit] = useState(false)
     const [hide, sethide] = useState(false)
@@ -23,6 +23,7 @@ const Tweet = ({ json, hideActions }) => {
 
         deleteTweet(json.tweetId).then((res) => {
             if (res.status === 200) {
+                deleteItem(json.tweetId)
                 alert('Tweet deleted!')
             }
         }).catch((err) => {

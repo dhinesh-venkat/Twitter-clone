@@ -9,23 +9,29 @@ const Tweets = () => {
     const [tweets, settweets] = useState([])
     const navigate = useNavigate()
 
+    const load = () => getTweets().then((res) => {
+        if (res.status === 200) {
+            settweets(res.data)
+        }
+    }).catch((err) => {
+        if (err.response.status === 401) {
+            auth.logout(() => {
+                navigate('/login')
+            })
+        }
+    })
+
     useEffect(() => {
-        getTweets().then((res) => {
-            if (res.status === 200) {
-                settweets(res.data)
-            }
-        }).catch((err) => {
-            if (err.response.status === 401) {
-                auth.logout(() => {
-                    navigate('/login')
-                })
-            }
-        })
-    }, [navigate])
+        load()
+    }, [])
+
+    const deleteItem = (tweetId) => {
+        settweets(prev => prev.filter((item) => item.tweetId !== tweetId))
+    }
 
     const tweetsList = tweets.map((tweet) =>
         <li key={tweet.tweetId} className="flex justify-center">
-            <Tweet json={tweet} />
+            <Tweet json={tweet} deleteItem={ deleteItem }/>
         </li>
     )
 
