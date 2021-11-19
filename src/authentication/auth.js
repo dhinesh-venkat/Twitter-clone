@@ -1,7 +1,14 @@
+import Cookies from "js-cookie"
+
 class Auth {
 
     constructor() {
-        this.authed = false
+        if(Cookies.get('token')) {
+            this.authed = true
+        } else {
+            this.authed = false
+        }
+        
     }
 
     login(cb) {

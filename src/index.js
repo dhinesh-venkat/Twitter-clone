@@ -14,6 +14,7 @@ import Search from './pages/Search';
 import UserProfile from './pages/UserProfile';
 import LandingPage from './pages/LandingPage';
 import {ProtectedRoute} from './authentication/ProtectedRoute'
+import { ProtectedLogin } from './authentication/ProtectedLogin'
 
 ReactDOM.render(
   <React.StrictMode>
@@ -21,7 +22,7 @@ ReactDOM.render(
       <Routes>
         <Route path="/" element={<LandingPage />} />
 
-        <Route path="login" element={<Login />} />
+        <Route path="login" element={<ProtectedLogin><Login /></ProtectedLogin>} />
 
         <Route path="/app" 
             element={

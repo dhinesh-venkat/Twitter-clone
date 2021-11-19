@@ -1,4 +1,5 @@
 import { Avatar } from '@mui/material'
+import Cookies from 'js-cookie'
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import auth from '../authentication/auth'
@@ -9,6 +10,7 @@ const Profile = () => {
     const navigate = useNavigate()
 
     const handleLogout = () => {
+        Cookies.remove('token')
         auth.logout(() => {
             navigate('/')
         })

@@ -5,6 +5,7 @@ import Signup from '../components/login/SignUpButton'
 import auth from '../authentication/auth'
 import { useNavigate } from 'react-router-dom'
 import { login } from '../services/loginUser'
+import Cookies from 'js-cookie'
 
 
 const Login = () => {
@@ -31,14 +32,17 @@ const Login = () => {
     const handleLogin = () => {
 
         login(username,password).then((res) => {
-            console.log(res.data)
+            console.log(res.status)
+            if(res.status === 200) {
+                Cookies.set('token',res.data)
+                auth.login(() => {
+                    navigate('/app/tweets')
+                })
+            }
+            
         }).catch((err) => {
             console.log('error occured');
             console.log(err)
-        })
-
-        auth.login(() => {
-            navigate('/app/tweets')
         })
     }
 
