@@ -8,9 +8,11 @@ import { updateTweet } from '../../services/updateTweet'
 import { getUserId } from '../../authentication/getUserId'
 import { likeTweet } from '../../services/likeTweet'
 import { dislikeTweet } from '../../services/disklikeTweet'
+import { saveTweet,unsaveTweet } from '../../services/saveService'
 
 
 const Tweet = ({ json, hideActions, deleteItem }) => {
+    console.log(json);
 
     const [tweet, settweet] = useState({
         tweetId: json.tweetId,
@@ -18,6 +20,7 @@ const Tweet = ({ json, hideActions, deleteItem }) => {
         createdAt: json.createdAt,
         isPublic: json.isPublic,
         likedBy: json.likedBy,
+        savedBy: json.savedBy,
         likes: json.likes,
         owner: json.owner
     })
@@ -27,7 +30,10 @@ const Tweet = ({ json, hideActions, deleteItem }) => {
 
     let userId = getUserId()
     let myLike = tweet.likedBy.includes(userId)
+    let mySave = tweet.savedBy.includes(userId)
+
     const [liked, setliked] = useState(myLike)
+    const [saved, setsaved] = useState(mySave)
 
     let navigate = useNavigate();
     const handleDelete = () => {
@@ -76,6 +82,26 @@ const Tweet = ({ json, hideActions, deleteItem }) => {
             if (res.status === 200) {
                 setliked(false)
                 settweet({...tweet, likes: tweet.likes - 1})
+            }
+        }).catch((err) => {
+            console.log(err.response);
+        })
+    }
+
+    const handleSave = () => {
+        saveTweet(tweet.tweetId).then((res) => {
+            if (res.status === 200) {
+                setsaved(true)
+            }
+        }).catch((err) => {
+            console.log(err.response);
+        })
+    }
+
+    const handleUnsave = () => {
+        unsaveTweet(tweet.tweetId).then((res) => {
+            if (res.status === 200) {
+                setsaved(false)
             }
         }).catch((err) => {
             console.log(err.response);
@@ -156,9 +182,9 @@ const Tweet = ({ json, hideActions, deleteItem }) => {
                                 Reply
                             </button>
                         </div>
-                        <div className="text-gray-400">
-                            Save
-                        </div>
+                        <button onClick={saved ? handleUnsave : handleSave} className="text-gray-400 hover:text-white">
+                            {saved ? 'Unsave' : 'Save'}
+                        </button>
                     </div>}
                     {edit ? <div className="flex flex-row justify-end space-x-6 mt-3 items-center">
                         <div className="space-x-2">

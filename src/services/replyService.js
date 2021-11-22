@@ -44,7 +44,7 @@ export const updateReply = async (id, content) => {
 
 export const deleteReply = async (id) => {
 
-    const url = `tweets/replies/delete/${id}`
+    const url = `/tweets/replies/delete/${id}`
 
     return await axios.delete(url, options)
 
