@@ -1,17 +1,37 @@
 import { Avatar } from '@mui/material';
-import { React, useState } from 'react'
-import { useLocation } from 'react-router';
+import { React, useState, useEffect } from 'react'
+import { useLocation, useNavigate } from 'react-router';
+import auth from '../authentication/auth';
 import Reply from '../components/reply/Reply'
 import Tweet from '../components/tweet/Tweet'
-import { getReplies } from '../replies'
+import { getReplies } from '../services/replyService'
 
 const Replies = () => {
 
     const { state } = useLocation();
     const [replyContent, setreplyContent] = useState("")
-    const data = getReplies()
 
-    const replyList = data.map((reply) =>
+    const [replies, setreplies] = useState([])
+    const navigate = useNavigate
+
+    const load = () => getReplies(state.tweetId).then((res) => {
+        if (res.status === 200) {
+            setreplies(res.data)
+        }
+    }).catch((err) => {
+        if (err.response.status === 401) {
+            auth.logout(() => {
+                navigate('/login')
+            })
+        }
+    })
+
+    useEffect(() => {
+        load()
+    // eslint-disable-next-line
+    }, [])
+
+    const replyList = replies.map((reply) =>
         <li key={reply.id} className="flex justify-center">
             <Reply json={reply} />
         </li>
