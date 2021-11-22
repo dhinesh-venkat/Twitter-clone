@@ -4,12 +4,13 @@ import { useLocation, useNavigate } from 'react-router';
 import auth from '../authentication/auth';
 import Reply from '../components/reply/Reply'
 import Tweet from '../components/tweet/Tweet'
-import { getReplies } from '../services/replyService'
+import { getReplies,newReply } from '../services/replyService'
 
 const Replies = () => {
 
     const { state } = useLocation();
     const [replyContent, setreplyContent] = useState("")
+    const [loadAgain, setloadAgain] = useState(0)
 
     const [replies, setreplies] = useState([])
     const navigate = useNavigate
@@ -29,7 +30,17 @@ const Replies = () => {
     useEffect(() => {
         load()
     // eslint-disable-next-line
-    }, [])
+    }, [loadAgain])
+
+    const handleNewReply = () => {
+        newReply(state.tweetId, replyContent).then((res) => {
+            if (res.status === 200) {
+                setloadAgain(prev => prev + 1)
+            }
+        }).catch((err) => {
+            console.log(err.response);
+        })
+    }
 
     const replyList = replies.map((reply) =>
         <li key={reply.id} className="flex justify-center">
@@ -55,7 +66,9 @@ const Replies = () => {
                             className="rounded-md resize-none overflow-hidden p-2 w-full bg-black-medium h-20 outline-none text-white-primary px-2"></textarea>
                     </div>
 
-                    <button className="bg-pink-600 transition duration-200 hover:bg-pink-700 text-white rounded-full text-xs px-5 py-2 ml-80">Reply</button>
+                    <button
+                        onClick={ handleNewReply }
+                        className="bg-pink-600 transition duration-200 hover:bg-pink-700 text-white rounded-full text-xs px-5 py-2 ml-80">Reply</button>
 
                 </div>
 
