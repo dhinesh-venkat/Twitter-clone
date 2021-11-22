@@ -36,7 +36,7 @@ const Search = () => {
                 to={`profile/tweets`}
                 key={user.userId}
             >
-                <a href="#" data-tip="Click to view profile">
+                <a href="/nothing" data-tip="Click to view profile">
                     <ReactTooltip place="right" type="info" effect="solid" />
                     <SearchItem json={user} buttonText='Unfollow' isProfile={true} />
                 </a>

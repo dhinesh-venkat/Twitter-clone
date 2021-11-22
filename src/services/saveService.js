@@ -23,3 +23,11 @@ export const unsaveTweet = async (id) => {
     return await axios.delete(url, options)
 
 }
+
+export const getSavedTweets = async () => {
+
+    const url = `/tweets/saved`
+
+    return await axios.get(url, options)
+
+}
