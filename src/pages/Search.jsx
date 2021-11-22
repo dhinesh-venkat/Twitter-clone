@@ -33,8 +33,9 @@ const Search = () => {
         <li>
             <Link
                 style={{ display: "block", margin: "1rem 0" }}
-                to={`profile/tweets`}
+                to={`profile/${user.username}`}
                 key={user.userId}
+                state={user}
             >
                 <a href="/nothing" data-tip="Click to view profile">
                     <ReactTooltip place="right" type="info" effect="solid" />

@@ -5,28 +5,35 @@ import Tweet from '../components/tweet/Tweet'
 import { getTweets } from '../services/getTweets'
 
 
-const Tweets = () => {
+const Tweets = ({ data }) => {
     const [tweets, settweets] = useState([])
     const navigate = useNavigate()
 
-    const load = () => getTweets().then((res) => {
-        if (res.status === 200) {
-            settweets(res.data)
-        }
-    }).catch((err) => {
-        if (err.response.status === 401) {
-            auth.logout(() => {
-                navigate('/login')
+    const load = () => {
+        if(data === undefined) {
+            getTweets().then((res) => {
+                if (res.status === 200) {
+                    settweets(res.data)
+                }
+            }).catch((err) => {
+                if (err.response.status === 401) {
+                    auth.logout(() => {
+                        navigate('/login')
+                    })
+                }
             })
+        } else {
+            settweets(data)
         }
-    })
+    }
 
     useEffect(() => {
         load()
-    // eslint-disable-next-line
-    }, [])
+        // eslint-disable-next-line
+    }, [data])
 
-    
+
+
 
     const deleteItem = (tweetId) => {
         settweets(prev => prev.filter((item) => item.tweetId !== tweetId))
@@ -34,7 +41,7 @@ const Tweets = () => {
 
     const tweetsList = tweets.map((tweet) =>
         <li key={tweet.tweetId} className="flex justify-center">
-            <Tweet json={tweet} deleteItem={ deleteItem }/>
+            <Tweet json={tweet} deleteItem={deleteItem} />
         </li>
     )
 

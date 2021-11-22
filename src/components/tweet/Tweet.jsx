@@ -12,8 +12,6 @@ import { saveTweet,unsaveTweet } from '../../services/saveService'
 
 
 const Tweet = ({ json, hideActions, deleteItem }) => {
-    console.log(json);
-
     const [tweet, settweet] = useState({
         tweetId: json.tweetId,
         content: json.content,
