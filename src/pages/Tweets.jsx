@@ -23,6 +23,7 @@ const Tweets = () => {
 
     useEffect(() => {
         load()
+    // eslint-disable-next-line
     }, [])
 
     const updateItem = (tweetId, content, isPublic) => {
