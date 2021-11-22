@@ -10,7 +10,7 @@ import { likeTweet } from '../../services/likeTweet'
 import { dislikeTweet } from '../../services/disklikeTweet'
 
 
-const Tweet = ({ json, hideActions, deleteItem, updateItem }) => {
+const Tweet = ({ json, hideActions, deleteItem }) => {
 
     const [tweet, settweet] = useState({
         tweetId: json.tweetId,
@@ -123,8 +123,7 @@ const Tweet = ({ json, hideActions, deleteItem, updateItem }) => {
                 </div>
 
                 <div className="flex-col">
-                    <div className="flex space-x-28">
-                        <div className="flex flex-row space-x-2">
+                    <div className="flex space-x-2">
                             <div className="text-white font-bold">
                                 {tweet.owner.displayName}
                             </div>
@@ -134,7 +133,6 @@ const Tweet = ({ json, hideActions, deleteItem, updateItem }) => {
                             <div className="text-gray-400">
                                 <Moment format="MMM DD">{tweet.createdAt}</Moment>
                             </div>
-                        </div>
 
                         {tweet.owner.userId === userId ? <PopupMenu onDelete={handleDelete} onEdit={toggleEdit} /> : ''}
 

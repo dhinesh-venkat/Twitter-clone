@@ -42,9 +42,13 @@ const Replies = () => {
         })
     }
 
+    const deleteItem = (id) => {
+        setreplies(prev => prev.filter((item) => item.id !== id))
+    }
+
     const replyList = replies.map((reply) =>
         <li key={reply.id} className="flex justify-center">
-            <Reply json={reply} />
+            <Reply json={reply} deleteItem={deleteItem}/>
         </li>
     )
 

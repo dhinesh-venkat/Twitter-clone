@@ -1,8 +1,11 @@
 import { Avatar } from '@mui/material'
 import React, { useState } from 'react'
 import Moment from 'react-moment';
+import { getUserId } from '../../authentication/getUserId';
+import PopupMenu from '../popup/PopupMenu';
+import { deleteReply, updateReply } from '../../services/replyService'
 
-const Reply = ({ json }) => {
+const Reply = ({ json, deleteItem }) => {
 
     const [reply, setreply] = useState(
         {
@@ -13,6 +16,35 @@ const Reply = ({ json }) => {
             "createdAt": json.createdAt
         }
     )
+
+    let userId = getUserId()
+    const [edit, setedit] = useState(false)
+
+    const toggleEdit = () => {
+        setedit(true)
+    }
+
+    const handleDelete = () => {
+        deleteReply(reply.id).then((res) => {
+            if(res.status === 200) {
+                deleteItem(reply.id)
+            }
+        }).catch((err) => {
+            console.log(err.response);
+        })
+    }
+
+    const handleUpdate = () => {
+        setedit(false)
+        updateReply(reply.id, reply.content).then((res) => {
+            if(res.status === 200) {
+                setreply(...reply, {})
+            }
+        }).catch((err) => {
+            console.log(err.response);
+        })
+    }
+
 
     return (
         <div className="flex border border-opacity-50 w-full h-auto mb-2">
@@ -33,11 +65,21 @@ const Reply = ({ json }) => {
                         <div className="text-gray-400">
                             <Moment format="MMM DD">{reply.createdAt}</Moment>
                         </div>
+
+                        {reply.replyBy.userId === userId ? <PopupMenu onDelete={handleDelete} onEdit={toggleEdit} /> : ''}
                     </div>
 
-                    <div className="text-white">
-                        {reply.content}
-                    </div>
+                    {!edit ? <div className="text-white">{reply.content}</div>
+                        : <textarea
+                            maxLength='255'
+                            value={reply.content}
+                            onChange={(e) => setreply({...reply, content: e.target.value})}
+                            className=" rounded-md resize-none overflow-hidden p-2 w-full bg-black-medium h-20 outline-none text-white px-2"></textarea>}
+
+                    {edit ? <button
+                            onClick={handleUpdate}
+                            className="text-gray-100 hover:text-white transition duration-200 rounded-full text-sm flex justify-center bg-green-400 hover:bg-green-500 p-2 w-16">Update</button>
+                        : ''}
                 </div>
             </div>
 
