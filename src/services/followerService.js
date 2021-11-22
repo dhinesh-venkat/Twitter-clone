@@ -32,6 +32,14 @@ export const getFollowing = async () => {
 
 }
 
+export const followUser = async (userId) => {
+
+    const url = `/users/follow/${userId}`
+
+    return await axios.get(url, options)
+
+}
+
 
 export const unfollowUser = async (id) => {
 
