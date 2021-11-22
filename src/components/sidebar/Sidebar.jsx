@@ -19,7 +19,7 @@ const Sidebar = ({ isActive, toggle, toggleModal }) => {
         if (event.key === 'Enter') {
           console.log(searchContent)
           toggle()
-          navigate('/search')
+          navigate('search')
         }
       }
 

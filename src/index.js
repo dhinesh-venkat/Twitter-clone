@@ -45,7 +45,7 @@ ReactDOM.render(
 
           <Route path="profile" element={<Profile />} />
 
-          <Route path="profile/tweets" element={<UserProfile />} />
+          <Route path="search/profile/tweets" element={<UserProfile />} />
 
           <Route path="search" element={<Search />} />
 

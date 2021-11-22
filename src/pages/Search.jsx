@@ -11,7 +11,7 @@ const Search = () => {
         <li>
             <Link
                 style={{ display: "block", margin: "1rem 0" }}
-                to={`/profile/tweets`}
+                to={`profile/tweets`}
                 key={user.userId}
             >
                 <SearchItem json={user} buttonText='Unfollow' isProfile={true} />
