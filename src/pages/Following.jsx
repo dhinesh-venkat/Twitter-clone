@@ -1,14 +1,38 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
+import auth from '../authentication/auth'
 import UserCard from '../components/user card/UserCard'
-import { getFollowers } from '../followers'
+import { getFollowing } from '../services/followerService'
+import { useNavigate } from 'react-router'
 
 const Following = () => {
 
-    const data = getFollowers()
+    const [following, setfollowing] = useState([])
+    const navigate = useNavigate()
 
-    const followersList = data.map((follower) =>
+    const load = () => getFollowing().then((res) => {
+        if (res.status === 200) {
+            setfollowing(res.data)
+        }
+    }).catch((err) => {
+        if (err.response.status === 401) {
+            auth.logout(() => {
+                navigate('/login')
+            })
+        }
+    })
+
+    useEffect(() => {
+        load()
+    // eslint-disable-next-line
+    }, [])
+
+    const removeFollowingFromUi = (id) => {
+        setfollowing(prev => prev.filter((item) => item.id !== id))
+    }
+
+    const followersList = following.map((follower) =>
     <li key={follower.id} className="flex justify-center">
-        <UserCard json={ follower } buttonText='Unfollow'/>
+        <UserCard json={ follower } isFollower={false} unfollow={removeFollowingFromUi}/>
     </li>
 )
 

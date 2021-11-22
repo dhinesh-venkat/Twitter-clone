@@ -1,13 +1,33 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React, { useState, useEffect } from 'react'
+import { Link, useNavigate, useLocation } from 'react-router-dom'
+import auth from '../authentication/auth'
 import SearchItem from '../components/user card/SearchItem'
-import { getItems } from '../search'
+import { searchUser } from '../services/followerService'
 
 const Search = () => {
 
-    const data = getItems()
+    const [users, setusers] = useState([])
+    const navigate = useNavigate()
+    const { state } = useLocation();
 
-    const users = data.map((user, i) =>
+    const load = () => searchUser(state).then((res) => {
+        if (res.status === 200) {
+            setusers(res.data)
+        }
+    }).catch((err) => {
+        if (err.response.status === 401) {
+            auth.logout(() => {
+                navigate('/login')
+            })
+        }
+    })
+
+    useEffect(() => {
+        load()
+    // eslint-disable-next-line
+    }, [state])
+
+    const usersList = users.map((user) =>
         <li>
             <Link
                 style={{ display: "block", margin: "1rem 0" }}
@@ -26,7 +46,7 @@ const Search = () => {
         <div>
             <div className="bg-black-dark min-h-screen flex-1">
                 <div className="mt-12 flex justify-center  m-auto">
-                    <ul>{ users }</ul>
+                    <ul>{ usersList }</ul>
                 </div>
             </div>
         </div>
