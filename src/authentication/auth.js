@@ -3,14 +3,11 @@ import Cookies from "js-cookie"
 class Auth {
 
     constructor() {
-        try{
-            this.token = Cookies.get('token')
+        if(Cookies.get('token')) {
             this.authed = true
-        }catch(err) {
-            console.log(err.message);
+        } else {
             this.authed = false
         }
-        
     }
 
     login(cb) {

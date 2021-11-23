@@ -38,26 +38,46 @@ const Login = () => {
                 Cookies.set('token',res.data)
                 auth.login(() => {
                     navigate('/app/tweets')
+                    window.location.reload();
                 })
             }
             
         }).catch((err) => {
-            console.log('error occured');
-            console.log(err)
+            if(err.response.status === 403) {
+                alert('Wrong Credentials')
+            } 
         })
     }
 
-    const handleSignup = () => {
-        signupUser(username,displayName,password).then((res) => {
-            if(res.status === 200) {
-                alert('Success')
-                setsignup(false)
+    const validUsername = (text) => {
+        const noSpace = /^\S*$/
+        const startsWith = /(^|[^@\w])@(\w{1,15})\b/
+
+        if(text.match(noSpace)){
+            if(text.match(startsWith)){
+                return true;
             }
-            
-        }).catch((err) => {
-            console.log('error occured');
-            console.log(err)
-        })
+        }
+
+        return false;
+    }
+
+    const handleSignup = () => {
+        const valid = validUsername(username)
+        if(valid) {
+            signupUser(username,displayName,password).then((res) => {
+                if(res.status === 200) {
+                    alert('Success')
+                    setsignup(false)
+                }
+                
+            }).catch((err) => {
+                console.log('error occured');
+                console.log(err)
+            })
+        } else {
+            alert('Username must not contain spaces and must start with @')
+        }
     }
 
     return (
