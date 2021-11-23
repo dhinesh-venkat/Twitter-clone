@@ -26,6 +26,7 @@ const CreateTweet = ({ show, toggleModal }) => {
         postTweet(tweetContent, isPublic).then((res) => {
             if (res.status === 200) {
                 toggleModal()
+                window.location.reload();
             }
 
         }).catch((err) => {
