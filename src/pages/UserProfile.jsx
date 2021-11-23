@@ -5,10 +5,11 @@ import { getProfile,getFollowStatus } from '../services/profileService'
 import { useNavigate } from 'react-router'
 import auth from '../authentication/auth'
 import { useLocation } from "react-router-dom";
+import { getUserId } from '../authentication/getUserId'
 
 const UserProfile = () => {
     const { state } = useLocation();
-
+    const userId = getUserId()
     const [user, setuser] = useState({
         userId: state.userId,
         username: state.username,
@@ -68,10 +69,9 @@ const UserProfile = () => {
                 </div>
 
                 <div className="flex items-center space-x-2">
-                    <button className={` text-gray-200 hover:text-white transition-all duration-200 text-center py-1 px-2 ${showFollow ? 'bg-green-500 hover:bg-green-600': 'bg-pink-500 hover:bg-pink-600'}`}>
+                    <button className={` ${state.userId === userId ? 'cursor-not-allowed' : ''} text-gray-200  hover:text-white transition-all duration-200 text-center py-1 px-2 ${showFollow ? 'bg-green-500 hover:bg-green-600': 'bg-pink-500 hover:bg-pink-600'}`}>
                         {showFollow ? 'Follow' : 'Unfollow'}
                     </button>
-
                 </div>
             </div>
             <Tweets data={user.tweets}/>
