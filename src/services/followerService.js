@@ -36,7 +36,7 @@ export const followUser = async (userId) => {
 
     const url = `/users/follow/${userId}`
 
-    return await axios.get(url, options)
+    return await axios.post(url, {}, options)
 
 }
 

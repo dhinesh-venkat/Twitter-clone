@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router'
 import auth from '../authentication/auth'
 import { useLocation } from "react-router-dom";
 import { getUserId } from '../authentication/getUserId'
+import { followUser, unfollowUser } from '../services/followerService'
 
 const UserProfile = () => {
     const { state } = useLocation();
@@ -34,6 +35,26 @@ const UserProfile = () => {
             })
         }
     })
+
+    const handleUnfollow = () => {
+        unfollowUser(state.userId).then((res) => {
+            if(res.status === 200) {
+                setshowFollow(true)
+            }
+        }).catch((err) => {
+            console.log(err.response);
+        })
+    }
+
+    const handleFollow = () => {
+        followUser(state.userId).then((res) => {
+            if(res.status === 200) {
+                setshowFollow(false)
+            }
+        }).catch((err) => {
+            console.log(err.response);
+        })
+    }
 
     const loadTweets = () => getProfile(state.userId).then((res) => {
         if (res.status === 200) {
@@ -69,7 +90,9 @@ const UserProfile = () => {
                 </div>
 
                 <div className="flex items-center space-x-2">
-                    <button className={` ${state.userId === userId ? 'cursor-not-allowed' : ''} text-gray-200  hover:text-white transition-all duration-200 text-center py-1 px-2 ${showFollow ? 'bg-green-500 hover:bg-green-600': 'bg-pink-500 hover:bg-pink-600'}`}>
+                    <button
+                        onClick={ showFollow ? handleFollow : handleUnfollow } 
+                        className={` ${state.userId === userId ? 'cursor-not-allowed' : ''} text-gray-200  hover:text-white transition-all duration-200 text-center py-1 px-2 ${showFollow ? 'bg-green-500 hover:bg-green-600': 'bg-pink-500 hover:bg-pink-600'}`}>
                         {showFollow ? 'Follow' : 'Unfollow'}
                     </button>
                 </div>
