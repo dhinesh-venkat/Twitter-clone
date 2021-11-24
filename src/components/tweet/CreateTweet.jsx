@@ -10,7 +10,7 @@ const CreateTweet = ({ show, toggleModal }) => {
     const [isPublic, setisPublic] = useState(true)
     const [showModal, setshowModal] = useState(show)
     const navigate = useNavigate()
-
+    // eslint-disable-next-line
     function togglePublic() {
         setisPublic(!isPublic)
     }
