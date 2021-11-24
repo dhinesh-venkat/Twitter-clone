@@ -185,10 +185,11 @@ const Tweet = ({ json, hideActions, deleteItem }) => {
                         </button>
                     </div>}
                     {edit ? <div className="flex flex-row justify-end space-x-6 mt-3 items-center">
-                        <div className="space-x-2">
+                        {/* <div className="space-x-2">
                             <input type="checkbox" checked={tweet.isPublic} onChange={(e) => settweet(...tweet, {isPublic: e.target.checked})} />
                             <label className="text-gray-400">Public</label>
-                        </div><button
+                        </div> */}
+                        <button
                             onClick={handleUpdate}
                             className="text-gray-100 hover:text-white transition duration-200 rounded-full text-sm flex justify-center bg-green-400 hover:bg-green-500 p-2 w-16">Update</button></div>
                         : ''}

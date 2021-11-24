@@ -63,10 +63,10 @@ const CreateTweet = ({ show, toggleModal }) => {
                     </div>
 
                     <div className="flex flex-row justify-end space-x-6 mt-3 items-center">
-                        <div className="space-x-2">
+                        {/* <div className="space-x-2">
                             <input type="checkbox" checked={isPublic} onChange={togglePublic} />
                             <label className="text-gray-400">Public</label>
-                        </div>
+                        </div> */}
                         <button
                             onClick={handleSubmit}
                             className="text-gray-100 hover:text-white transition duration-200 rounded-full text-sm flex justify-center bg-green-400 hover:bg-green-500 p-2 w-16">Tweet</button>

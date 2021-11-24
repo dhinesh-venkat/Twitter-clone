@@ -37,8 +37,8 @@ const Login = () => {
             if(res.status === 200) {
                 Cookies.set('token',res.data)
                 auth.login(() => {
-                    navigate('/app/tweets')
                     window.location.reload();
+                    navigate('/app/tweets')
                 })
             }
             
