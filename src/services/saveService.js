@@ -4,13 +4,13 @@ import axios from './axios'
 const token = Cookies.get('token')
 let options = {
     headers: {
-        Authorization: 'BEARER ' + token
+        Authorization: token
     }
 }
 
 export const saveTweet = async (id) => {
 
-    const url = `/tweets/save/${id}`
+    const url = `dcapi/tweets/save/${id}`
 
     return await axios.post(url,{}, options)
 
@@ -18,7 +18,7 @@ export const saveTweet = async (id) => {
 
 export const unsaveTweet = async (id) => {
 
-    const url = `/tweets/unsave/${id}`
+    const url = `dcapi/tweets/unsave/${id}`
 
     return await axios.delete(url, options)
 
@@ -26,7 +26,7 @@ export const unsaveTweet = async (id) => {
 
 export const getSavedTweets = async () => {
 
-    const url = `/tweets/saved`
+    const url = `dcapi/tweets/saved`
 
     return await axios.get(url, options)
 

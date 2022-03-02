@@ -3,12 +3,12 @@ import axios from './axios'
 
 export const dislikeTweet = async (tweetId) => {
 
-    const url = `/tweets/dislike/${tweetId}`
+    const url = `dcapi/tweets/dislike/${tweetId}`
     const token = Cookies.get('token')
 
     let options = {
         headers: {
-            Authorization: 'BEARER ' + token
+            Authorization: token
         }
     }
 

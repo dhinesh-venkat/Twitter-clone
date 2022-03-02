@@ -7,13 +7,10 @@ import { useNavigate } from 'react-router-dom'
 
 const CreateTweet = ({ show, toggleModal }) => {
     const [tweetContent, settweetContent] = useState("")
-    const [isPublic, setisPublic] = useState(true)
     const [showModal, setshowModal] = useState(show)
     const navigate = useNavigate()
     // eslint-disable-next-line
-    function togglePublic() {
-        setisPublic(!isPublic)
-    }
+
 
     function hide(e) {
         setshowModal(false)
@@ -23,7 +20,7 @@ const CreateTweet = ({ show, toggleModal }) => {
     const handleSubmit = (e) => {
         e.preventDefault()
 
-        postTweet(tweetContent, isPublic).then((res) => {
+        postTweet(tweetContent).then((res) => {
             if (res.status === 200) {
                 toggleModal()
                 window.location.reload();

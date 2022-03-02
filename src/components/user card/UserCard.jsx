@@ -23,11 +23,14 @@ const UserCard = ({ json, isFollower, remove, unfollow }) => {
         })
     }
 
+    let avatar = `https://avatars.dicebear.com/api/avataaars/${ isFollower ? json.followedBy.name : json.following.name}.svg`
+
+
     return (
         <div className="flex flex-row p-4 justify-between space-x-12 border border-opacity-50 w-1/3">
             <div className="space-x-6 flex flex-row items-center">
-                <Avatar alt="ava" src={isFollower ? json.followedBy.avatar : json.following.avatar} sx={{ width: 24, height: 24 }} />
-                <div className="text-white-primary text-lg">{ isFollower ? json.followedBy.displayName : json.following.displayName}</div>
+                <Avatar alt="ava" src={avatar} sx={{ width: 24, height: 24 }} />
+                <div className="text-white-primary text-lg">{ isFollower ? json.followedBy.name : json.following.name}</div>
             </div>
             <button
                 onClick={isFollower ? handleRemove : handleUnfollow} 

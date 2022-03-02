@@ -7,10 +7,10 @@ import { useNavigate } from 'react-router-dom'
 import { login } from '../services/loginUser'
 import { signupUser } from '../services/signup'
 import Cookies from 'js-cookie'
+import { encode } from 'base-64'
 
 
 const Login = () => {
-
     const navigate = useNavigate()
 
     const [username, setusername] = useState("")
@@ -32,10 +32,11 @@ const Login = () => {
 
     const handleLogin = () => {
 
-        login(username,password).then((res) => {
+        login(username,encode(password)).then((res) => {
             console.log(res.status)
             if(res.status === 200) {
-                Cookies.set('token',res.data)
+                console.log(res.data.message_response.authentication.auth_data.auth_token)
+                Cookies.set('token',res.data.message_response.authentication.auth_data.auth_token)
                 auth.login(() => {
                     window.location.reload();
                     navigate('/app/tweets')

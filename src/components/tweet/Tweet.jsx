@@ -5,13 +5,12 @@ import { useNavigate } from 'react-router';
 import PopupMenu from '../popup/PopupMenu';
 import { deleteTweet } from '../../services/deleteTweet'
 import { updateTweet } from '../../services/updateTweet'
-import { getUserId } from '../../authentication/getUserId'
 import { likeTweet } from '../../services/likeTweet'
 import { dislikeTweet } from '../../services/disklikeTweet'
 import { saveTweet,unsaveTweet } from '../../services/saveService'
 
 
-const Tweet = ({ json, hideActions, deleteItem }) => {
+const Tweet = ({ json, hideActions, deleteItem, userId }) => {
     const [tweet, settweet] = useState({
         tweetId: json.tweetId,
         content: json.content,
@@ -26,9 +25,11 @@ const Tweet = ({ json, hideActions, deleteItem }) => {
     const [edit, setedit] = useState(false)
     const [hide, sethide] = useState(false)
 
-    let userId = getUserId()
     let myLike = tweet.likedBy.includes(userId)
     let mySave = tweet.savedBy.includes(userId)
+
+    let date = new Intl.DateTimeFormat('en-US', { year: 'numeric', month: '2-digit', day: '2-digit' }).format(tweet.createdAt)
+    let avatar = `https://avatars.dicebear.com/api/avataaars/${tweet.owner.name}.svg`
 
     const [liked, setliked] = useState(myLike)
     const [saved, setsaved] = useState(mySave)
@@ -54,7 +55,7 @@ const Tweet = ({ json, hideActions, deleteItem }) => {
     const handleUpdate = () => {
         setedit(false)
         sethide(false)
-        updateTweet(tweet.tweetId, tweet.content, tweet.isPublic).then((res) => {
+        updateTweet(tweet.tweetId, tweet.content).then((res) => {
             if (res.status === 200) {
                 settweet(...tweet, {})
             }
@@ -143,22 +144,22 @@ const Tweet = ({ json, hideActions, deleteItem }) => {
 
             <div className="p-5 flex flex-row justify-evenly">
                 <div className="rounded-full h-12 mr-4">
-                    <Avatar alt="ava" src={tweet.owner.avatar} sx={{ width: 30, height: 30 }} />
+                    <Avatar alt="ava" src={avatar} sx={{ width: 30, height: 30 }} />
                 </div>
 
                 <div className="flex-col">
                     <div className="flex space-x-2">
                             <div className="text-white font-bold">
-                                {tweet.owner.displayName}
+                                {tweet.owner.name}
                             </div>
                             <div className="text-gray-400">
-                                {tweet.owner.username}
+                                {tweet.owner.name}
                             </div>
                             <div className="text-gray-400">
-                                <Moment format="MMM DD">{tweet.createdAt}</Moment>
+                                <Moment format="MMM DD">{date}</Moment>
                             </div>
 
-                        {tweet.owner.userId === userId ? <PopupMenu onDelete={handleDelete} onEdit={toggleEdit} /> : ''}
+                        {tweet.owner.id === userId ? <PopupMenu onDelete={handleDelete} onEdit={toggleEdit} /> : ''}
 
                     </div>
 

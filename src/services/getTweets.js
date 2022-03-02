@@ -3,12 +3,12 @@ import axios from './axios'
 
 export const getTweets = async () => {
 
-    const url = '/tweets'
+    const url = '/dcapi/tweets/all'
     const token = Cookies.get('token')
 
     let options = {
         headers: {
-            Authorization: 'BEARER ' + token
+            Authorization: token
         }
     }
 

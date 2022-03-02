@@ -2,12 +2,13 @@ import axios from './axios'
 
 export const login = async (username, password) => {
 
-    const url = '/login'
+    const url = '/api/1.3/desktop/authentication'
 
-    const json = {
+    const params = {
         username: username,
-        password: password
+        password: password,
+        auth_type: 'local_authentication'
     }
 
-    return await axios.post(url, json)
+    return await axios.get(url, {params})
 }

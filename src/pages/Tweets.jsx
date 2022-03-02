@@ -3,13 +3,20 @@ import { useNavigate } from 'react-router-dom'
 import auth from '../authentication/auth'
 import Tweet from '../components/tweet/Tweet'
 import { getTweets } from '../services/getTweets'
+import { getUser } from '../services/userService'
 
 
 const Tweets = ({ data }) => {
     const [tweets, settweets] = useState([])
     const navigate = useNavigate()
+    const [userId, setuserId] = useState("")
 
     const load = () => {
+        getUser().then((res) => {
+            if(res.status === 200) {
+                setuserId(res.data.id)
+            }
+        })
         if(data === undefined) {
             getTweets().then((res) => {
                 if (res.status === 200) {
@@ -41,7 +48,7 @@ const Tweets = ({ data }) => {
 
     const tweetsList = tweets.map((tweet) =>
         <li key={tweet.tweetId} className="flex justify-center">
-            <Tweet json={tweet} deleteItem={deleteItem} />
+            <Tweet json={tweet} deleteItem={deleteItem} userId={userId}/>
         </li>
     )
 

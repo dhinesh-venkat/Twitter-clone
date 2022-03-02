@@ -3,12 +3,12 @@ import axios from './axios'
 
 export const getProfile = async (userId) => {
 
-    const url = `/users/profile/${userId}`
+    const url = `dcapi/users/profile/${userId}`
     const token = Cookies.get('token')
 
     let options = {
         headers: {
-            Authorization: 'BEARER ' + token
+            Authorization: token
         }
     }
 
@@ -17,12 +17,12 @@ export const getProfile = async (userId) => {
 
 export const getFollowStatus = async (userId) => {
 
-    const url = `/followers/follow/status/${userId}`
+    const url = `dcapi/followers/follow/status/${userId}`
     const token = Cookies.get('token')
 
     let options = {
         headers: {
-            Authorization: 'BEARER ' + token
+            Authorization: token
         }
     }
 

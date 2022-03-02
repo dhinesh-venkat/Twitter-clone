@@ -33,8 +33,8 @@ const Search = () => {
         <li>
             <Link
                 style={{ display: "block", margin: "1rem 0" }}
-                to={`profile/${user.username}`}
-                key={user.userId}
+                to={`profile/${user.name}`}
+                key={user.id}
                 state={user}
             >
                 <a href="/nothing" data-tip="Click to view profile">

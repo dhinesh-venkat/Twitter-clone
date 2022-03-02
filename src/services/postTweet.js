@@ -1,20 +1,19 @@
 import Cookies from 'js-cookie'
 import axios from './axios'
 
-export const postTweet = async (content, isPublic) => {
+export const postTweet = async (content) => {
 
-    const url = '/tweets/new'
+    const url = 'dcapi/tweets/new'
     const token = Cookies.get('token')
 
     let options = {
         headers: {
-            Authorization: 'BEARER ' + token
+            Authorization: token
         }
     }
 
     const data = {
-        content: content,
-        public: isPublic
+        CONTENT: content
     }
 
     return await axios.post(url, data, options)

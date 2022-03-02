@@ -5,6 +5,7 @@ import auth from '../authentication/auth';
 import Reply from '../components/reply/Reply'
 import Tweet from '../components/tweet/Tweet'
 import { getReplies,newReply } from '../services/replyService'
+import { getUser } from '../services/userService';
 
 const Replies = () => {
 
@@ -14,18 +15,27 @@ const Replies = () => {
 
     const [replies, setreplies] = useState([])
     const navigate = useNavigate
+    const [userId, setuserId] = useState("")
 
-    const load = () => getReplies(state.tweetId).then((res) => {
-        if (res.status === 200) {
-            setreplies(res.data)
-        }
-    }).catch((err) => {
-        if (err.response.status === 401) {
-            auth.logout(() => {
-                navigate('/login')
-            })
-        }
-    })
+
+    const load = () => {
+        getUser().then((res) => {
+            if(res.status === 200) {
+                setuserId(res.data.id)
+            }
+        })
+        getReplies(state.tweetId).then((res) => {
+            if (res.status === 200) {
+                setreplies(res.data)
+            }
+        }).catch((err) => {
+            if (err.response.status === 401) {
+                auth.logout(() => {
+                    navigate('/login')
+                })
+            }
+        })
+    }
 
     useEffect(() => {
         load()
@@ -48,7 +58,7 @@ const Replies = () => {
 
     const replyList = replies.map((reply) =>
         <li key={reply.id} className="flex justify-center">
-            <Reply json={reply} deleteItem={deleteItem}/>
+            <Reply json={reply} deleteItem={deleteItem} userId={userId}/>
         </li>
     )
 
@@ -58,7 +68,7 @@ const Replies = () => {
                 <Tweet json={state} hideActions={true} />
 
                 <div className="border border-opacity-50 p-4 flex flex-col w-1/3 space-y-4">
-                    <div className="text-gray-400 text-xs">{`Replying to ${state.owner.username}`}</div>
+                    <div className="text-gray-400 text-xs">{`Replying to ${state.owner.name}`}</div>
 
                     <div className="flex flex-row">
                         <div className="rounded-full h-12 mr-4">

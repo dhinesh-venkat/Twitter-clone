@@ -4,13 +4,13 @@ import axios from './axios'
 const token = Cookies.get('token')
 let options = {
     headers: {
-        Authorization: 'BEARER ' + token
+        Authorization: token
     }
 }
 
 export const getFollowers = async () => {
 
-    const url = `/followers`
+    const url = `dcapi/followers/all`
 
     return await axios.get(url, options)
 
@@ -18,7 +18,7 @@ export const getFollowers = async () => {
 
 export const removeFollower = async (id) => {
 
-    const url = `/followers/remove/${id}`
+    const url = `dcapi/followers/remove/${id}`
 
     return await axios.delete(url, options)
 
@@ -26,7 +26,7 @@ export const removeFollower = async (id) => {
 
 export const getFollowing = async () => {
 
-    const url = `/users/following`
+    const url = `dcapi/users/following`
 
     return await axios.get(url, options)
 
@@ -34,7 +34,7 @@ export const getFollowing = async () => {
 
 export const followUser = async (userId) => {
 
-    const url = `/users/follow/${userId}`
+    const url = `dcapi/users/follow/${userId}`
 
     return await axios.post(url, {}, options)
 
@@ -43,7 +43,7 @@ export const followUser = async (userId) => {
 
 export const unfollowUser = async (id) => {
 
-    const url = `/users/unfollow/${id}`
+    const url = `dcapi/users/unfollow/${id}`
 
     return await axios.delete(url, options)
 
@@ -51,7 +51,7 @@ export const unfollowUser = async (id) => {
 
 export const searchUser = async (keyword) => {
 
-    const url = `/users/search/${keyword}`
+    const url = `dcapi/users/search/${keyword}`
 
     return await axios.get(url, options)
 

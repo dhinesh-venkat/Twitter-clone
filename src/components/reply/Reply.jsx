@@ -1,11 +1,10 @@
 import { Avatar } from '@mui/material'
 import React, { useState } from 'react'
 import Moment from 'react-moment';
-import { getUserId } from '../../authentication/getUserId';
 import PopupMenu from '../popup/PopupMenu';
 import { deleteReply, updateReply } from '../../services/replyService'
 
-const Reply = ({ json, deleteItem }) => {
+const Reply = ({ json, deleteItem, userId }) => {
 
     const [reply, setreply] = useState(
         {
@@ -17,12 +16,14 @@ const Reply = ({ json, deleteItem }) => {
         }
     )
 
-    let userId = getUserId()
     const [edit, setedit] = useState(false)
 
     const toggleEdit = () => {
         setedit(true)
     }
+
+    let date = new Intl.DateTimeFormat('en-US', { year: 'numeric', month: '2-digit', day: '2-digit' }).format()
+    let avatar = `https://avatars.dicebear.com/api/avataaars/${reply.replyBy.name}.svg`
 
     const handleDelete = () => {
         deleteReply(reply.id).then((res) => {
@@ -51,22 +52,22 @@ const Reply = ({ json, deleteItem }) => {
 
             <div className="p-5 flex flex-row justify-evenly">
                 <div className="rounded-full h-12 mr-4">
-                    <Avatar alt="ava" src={reply.replyBy.avatar} sx={{ width: 30, height: 30 }} />
+                    <Avatar alt="ava" src={avatar} sx={{ width: 30, height: 30 }} />
                 </div>
 
                 <div className="flex-col">
                     <div className="flex flex-row space-x-2">
                         <div className="text-white font-bold">
-                            {reply.replyBy.displayName}
+                            {reply.replyBy.name}
                         </div>
                         <div className="text-gray-400">
-                            {reply.replyBy.username}
+                            {reply.replyBy.name}
                         </div>
                         <div className="text-gray-400">
-                            <Moment format="MMM DD">{reply.createdAt}</Moment>
+                            <Moment format="MMM DD">{date}</Moment>
                         </div>
 
-                        {reply.replyBy.userId === userId ? <PopupMenu onDelete={handleDelete} onEdit={toggleEdit} /> : ''}
+                        {reply.replyBy.id === userId ? <PopupMenu onDelete={handleDelete} onEdit={toggleEdit} /> : ''}
                     </div>
 
                     {!edit ? <div className="text-white">{reply.content}</div>

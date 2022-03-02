@@ -1,21 +1,20 @@
 import Cookies from 'js-cookie'
 import axios from './axios'
 
-export const updateTweet = async (tweetId, content, isPublic) => {
+export const updateTweet = async (tweetId, content) => {
 
-    const url = '/tweets/update'
+    const url = 'dcapi/tweets/update'
     const token = Cookies.get('token')
 
     let options = {
         headers: {
-            Authorization: 'BEARER ' + token
+            Authorization: token
         }
     }
 
     const data = {
-        tweetId: tweetId,
-        content: content,
-        public: isPublic
+        TWEET_ID: tweetId,
+        CONTENT: content,
     }
 
     return await axios.put(url, data, options)
